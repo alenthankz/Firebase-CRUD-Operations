@@ -1,7 +1,9 @@
 const functions = require('firebase-functions');
 const express = require('express');
 var admin = require("firebase-admin");
+const path = require('path');
 
+var publicPath =path.join(__dirname+'/public')
 var serviceAccount = require("./permissions.json");
 
 admin.initializeApp({
@@ -15,9 +17,11 @@ const app = express();
 
 app.use(cors({orgin:true}));
 
-app.get('/start',(req,res)=>{
-    res.status(200).send('helo');
-})
+app.use(express.static(publicPath))
+
+// app.get('/start',(req,res)=>{
+//     res.status(200).send('helo');
+// })
 
 app.post('/api/create',(req,res)=>{
     (async ()=>{
